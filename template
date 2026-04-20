@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Daily Briefing</title>
+<style>
+  /* ── Reset ── */
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    background-color: #0a0a0a;
+    font-family: 'Courier New', Courier, monospace;
+    color: #e2e8f0;
+    font-size: 14px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── Wrapper ── */
+  .wrapper {
+    max-width: 640px;
+    margin: 0 auto;
+    background: #0a0a0a;
+    border: 1px solid #1a1a1a;
+  }
+
+  /* ── Header ── */
+  .header {
+    padding: 32px 32px 24px;
+    border-bottom: 1px solid #1a1a1a;
+    position: relative;
+  }
+  .header-eyebrow {
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #00ff88;
+    margin-bottom: 10px;
+  }
+  .header h1 {
+    font-size: 22px;
+    font-weight: 700;
+    color: #e2e8f0;
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+  }
+  .header h1 span { color: #00ff88; }
+  .header-meta {
+    font-size: 12px;
+    color: #64748b;
+    letter-spacing: 1px;
+  }
+  .header-bar {
+    margin-top: 20px;
+    height: 1px;
+    background: linear-gradient(90deg, #00ff88 0%, #00d4ff 50%, transparent 100%);
+  }
+
+  /* ── Body ── */
+  .body { padding: 28px 32px; }
+
+  .intro {
+    font-size: 13px;
+    color: #94a3b8;
+    line-height: 1.7;
+    margin-bottom: 28px;
+    padding-left: 12px;
+    border-left: 2px solid #1e1e1e;
+  }
+
+  /* ── Section label ── */
+  .section-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #00ff88;
+    margin: 0 0 16px;
+  }
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: #1a1a1a;
+  }
+
+  /* ── Item card ── */
+  .item {
+    background: #111111;
+    border: 1px solid #1a1a1a;
+    border-left: 2px solid #00ff88;
+    padding: 14px 16px;
+    margin-bottom: 10px;
+  }
+  .item.cyan  { border-left-color: #00d4ff; }
+  .item.amber { border-left-color: #f59e0b; }
+  .item.red   { border-left-color: #ef4444; }
+
+  .item-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    margin-bottom: 6px;
+    flex-wrap: wrap;
+  }
+  .item-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: #e2e8f0;
+    flex: 1;
+    min-width: 160px;
+  }
+  .item-desc {
+    font-size: 12px;
+    color: #94a3b8;
+    line-height: 1.65;
+  }
+
+  /* ── Tags ── */
+  .tag {
+    display: inline-block;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 2px 7px;
+    border: 1px solid;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .tag-green  { color: #00ff88; border-color: #00ff8844; background: #00ff8808; }
+  .tag-cyan   { color: #00d4ff; border-color: #00d4ff44; background: #00d4ff08; }
+  .tag-amber  { color: #f59e0b; border-color: #f59e0b44; background: #f59e0b08; }
+  .tag-red    { color: #ef4444; border-color: #ef444444; background: #ef444408; }
+  .tag-slate  { color: #94a3b8; border-color: #94a3b844; background: #94a3b808; }
+
+  /* ── Divider ── */
+  .divider {
+    height: 1px;
+    background: #1a1a1a;
+    margin: 24px 0;
+  }
+
+  /* ── CTA ── */
+  .cta-wrap { text-align: center; margin: 28px 0 4px; }
+  .cta {
+    display: inline-block;
+    padding: 11px 32px;
+    background: transparent;
+    color: #00ff88;
+    border: 1px solid #00ff88;
+    text-decoration: none;
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  /* ── Footer ── */
+  .footer {
+    padding: 20px 32px;
+    border-top: 1px solid #1a1a1a;
+    background: #080808;
+  }
+  .footer-sig {
+    font-size: 12px;
+    color: #00ff88;
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+  }
+  .footer-sub {
+    font-size: 11px;
+    color: #334155;
+    margin-bottom: 14px;
+  }
+  .footer-links {
+    font-size: 11px;
+    color: #334155;
+  }
+  .footer-links a {
+    color: #475569;
+    text-decoration: none;
+  }
+  .footer-prompt {
+    font-size: 11px;
+    color: #1e293b;
+    margin-top: 12px;
+    font-family: 'Courier New', monospace;
+  }
+  .footer-prompt span { color: #00ff8830; }
+</style>
+</head>
+<body>
+<div class="wrapper">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-eyebrow">// daily intelligence briefing</div>
+    <h1>AI &amp; <span>SECURITY</span> DIGEST</h1>
+    <div class="header-meta">MON 20 APR 2026 &nbsp;&#x2F;&#x2F;&nbsp; LAST 24H &nbsp;&#x2F;&#x2F;&nbsp; CURATED</div>
+    <div class="header-bar"></div>
+  </div>
+
+  <!-- BODY -->
+  <div class="body">
+
+    <p class="intro">
+      Your daily signal extract — critical CVEs, model releases, threat actor activity,
+      and AI&thinsp;&#xd7;&thinsp;security intersections from the last 24 hours.
+    </p>
+
+    <!-- AI SECTION -->
+    <div class="section-label">01 &nbsp; AI models &amp; tools</div>
+
+    <div class="item">
+      <div class="item-header">
+        <span class="tag tag-green">New Model</span>
+        <div class="item-title">Claude Opus 4.7</div>
+      </div>
+      <div class="item-desc">
+        87.6% SWE-bench Verified · 94.2% GPQA · 1M token context · new xhigh effort level.
+        Wins 12/14 benchmarks vs Opus 4.6 at identical $5/$25 pricing. Optimised for
+        long-running agentic workflows.
+      </div>
+    </div>
+
+    <div class="item cyan">
+      <div class="item-header">
+        <span class="tag tag-cyan">Intel</span>
+        <div class="item-title">Claude Mythos — Project Glasswing</div>
+      </div>
+      <div class="item-desc">
+        Anthropic's unreleased Mythos Preview autonomously found thousands of zero-days
+        across all major OSes and browsers. Access restricted to AWS, Apple, Cisco,
+        CrowdStrike. 93.9% SWE-bench · 94.6% GPQA Diamond.
+      </div>
+    </div>
+
+    <div class="item cyan">
+      <div class="item-header">
+        <span class="tag tag-slate">Infra</span>
+        <div class="item-title">MCP hits 97M installs</div>
+      </div>
+      <div class="item-desc">
+        Anthropic's Model Context Protocol crosses 97M installs. Now under the Linux
+        Foundation's Agentic AI Foundation alongside OpenAI's AGENTS.md and Block's goose.
+        All major providers ship MCP-compatible tooling.
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- CYBERSECURITY SECTION -->
+    <div class="section-label">02 &nbsp; threats &amp; vulnerabilities</div>
+
+    <div class="item red">
+      <div class="item-header">
+        <span class="tag tag-red">Critical — KEV</span>
+        <div class="item-title">CVE-2026-34197 · Apache ActiveMQ · CVSS 8.8</div>
+      </div>
+      <div class="item-desc">
+        Improper input validation in Jolokia API — attacker fetches remote config and
+        executes arbitrary OS commands. Hidden for 13 years. CISA KEV listed.
+        Federal patch deadline: 30 Apr 2026.
+      </div>
+    </div>
+
+    <div class="item red">
+      <div class="item-header">
+        <span class="tag tag-red">Critical · CVSS 9.9</span>
+        <div class="item-title">4× Cisco CVEs — ISE + Webex</div>
+      </div>
+      <div class="item-desc">
+        CVE-2026-20184: unauthenticated impersonation of any Webex user via broken SSO cert
+        validation. CVE-2026-20147/20180/20186: RCE in Identity Services Engine.
+        Patch immediately.
+      </div>
+    </div>
+
+    <div class="item amber">
+      <div class="item-header">
+        <span class="tag tag-amber">Supply Chain</span>
+        <div class="item-title">1,700 malicious packages — DPRK Contagious Interview</div>
+      </div>
+      <div class="item-desc">
+        North Korean campaign expanded to Go, Rust, and PHP. Packages impersonate
+        legitimate dev tooling and function as malware loaders. Direct risk for
+        agentic pipelines pulling open-source dependencies.
+      </div>
+    </div>
+
+    <div class="item amber">
+      <div class="item-header">
+        <span class="tag tag-amber">Today · Apr 20</span>
+        <div class="item-title">OpenAI coding agent fails IR — obscures active threats</div>
+      </div>
+      <div class="item-desc">
+        New research shows OpenAI's coding agent mishandling live incident response —
+        failing to surface threats and contaminating evidence. Key signal for agentic
+        security tooling design: strict guardrails required.
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- NIST CALLOUT -->
+    <div class="section-label">03 &nbsp; policy &amp; ecosystem</div>
+
+    <div class="item">
+      <div class="item-header">
+        <span class="tag tag-slate">NIST · Apr 15</span>
+        <div class="item-title">NVD enrichment scoped to KEV + federal CVEs only</div>
+      </div>
+      <div class="item-desc">
+        CVE submissions up 263% since 2020. NIST will now only enrich KEV-listed or
+        federal-use CVEs. All others listed but unenriched. Update vuln management
+        pipelines to treat CISA KEV as primary enrichment signal.
+      </div>
+    </div>
+
+    <div class="cta-wrap">
+      <a href="#" class="cta">[ View Full Briefing ]</a>
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="footer-sig">Santosh Kumar Achary</div>
+    <div class="footer-sub">Senior Cybersecurity Analyst · Bengaluru · santoshachary.in</div>
+    <div class="footer-links">
+      <a href="#">Unsubscribe</a> &nbsp;&#x2F;&#x2F;&nbsp; <a href="#">View in browser</a>
+    </div>
+    <div class="footer-prompt"><span>$ </span>echo "stay sharp, stay curious" _</div>
+  </div>
+
+</div>
+</body>
+</html>
